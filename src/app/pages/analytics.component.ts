@@ -14,8 +14,8 @@ import { NgxChartsModule, BarVerticalComponent } from '@swimlane/ngx-charts';
     CommonModule,
     MatCardModule,
     RouterLink,
-    // Importando apenas o componente necessário
-    BarVerticalComponent
+    // Importando o módulo necessário
+    NgxChartsModule
   ],
   template: `
     <div class="max-w-6xl mx-auto p-4">

@@ -44,7 +44,7 @@ import { RouterLink } from '@angular/router';
             </mat-form-field>
             
             <div class="bg-gray-100 p-3 rounded-md text-sm">
-              <strong>Demo credentials:</strong> pereiraizabela21@gmail.com / 12345678
+              <strong>Demo credentials:</strong> pereiraizabela21&#64;gmail.com / 12345678
             </div>
             
             <button mat-raised-button color="primary" class="mt-4" type="submit">Sign in</button>

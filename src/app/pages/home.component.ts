@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterModule],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, RouterModule],
   template: `
     <div class="min-h-screen flex flex-col">
       <!-- Header -->
