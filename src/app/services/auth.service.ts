@@ -1,26 +1,64 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario';
+import { catchError, map, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000/api/auth'; // Adjust backend URL as needed
+  private API_URL = 'https://projeto-blog-pessoal-l27j.onrender.com/api/usuarios';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  register(user: Usuario): Observable<any> {
-    return this.http.post(this.baseUrl + '/register', user);
+
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/login`, {
+      usuario: email,
+      senha: password
+    }, { observe: 'response' }).pipe(
+      map(response => {
+        const body = response.body as any;
+  
+        if (body && response.status === 200) {
+          const token = body.token;
+          const userId = body.id;
+  
+          localStorage.setItem('token', token);
+          localStorage.setItem('userId', userId.toString());
+  
+          return body;
+        } else {
+          throw new Error('Erro inesperado');
+        }
+      }),
+      catchError(error => {
+        if (error.status === 400) {
+          return throwError(() => new Error('Credenciais inválidas'));
+        } else {
+          return throwError(() => new Error('Erro ao tentar fazer login'));
+        }
+      })
+    );
   }
+  
+  
+  
 
-  login(credentials: { email: string; senha: string }): Observable<any> {
-    return this.http.post(this.baseUrl + '/login', credentials);
+  register(name: string, email: string, password: string): Observable<any> {
+    return this.http.post(`${this.API_URL}`, {
+      nome: name,
+      usuario: email,
+      senha: password
+    });
   }
+  
 
   logout(): void {
-    // Implement logout logic, e.g., remove token from storage
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

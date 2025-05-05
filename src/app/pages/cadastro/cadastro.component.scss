@@ -1,18 +1,22 @@
-.cadastro-container {
+  .login-container, .cadastro-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
   }
   
-  .cadastro-card {
-    width: 100%;
-    max-width: 400px;
+  mat-card {
+    width: 400px;
     padding: 20px;
   }
   
-  .buttons {
-    display: flex;
-    justify-content: flex-end;
+  .full-width {
+    width: 100%;
   }
+  
+  .register-link, .login-link {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
   

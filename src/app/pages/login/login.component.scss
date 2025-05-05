@@ -1,0 +1,21 @@
+.login-container, .cadastro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  mat-card {
+    width: 400px;
+    padding: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .register-link, .login-link {
+    margin-top: 15px;
+    text-align: center;
+  }
+  

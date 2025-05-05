@@ -1,70 +1,45 @@
 import { Injectable } from '@angular/core';
-
-interface Theme {
-  id: number | string;
-  name: string;
-  description?: string;
-}
-
-interface Post {
-  id: number | string;
-  theme: Theme;
-  createdAt: string;
-  likes: number;
-}
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+import { Post } from '../models/post';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  constructor() {}
+  private apiUrl = 'https://projeto-blog-pessoal-l27j.onrender.com/api/postagens'; 
 
-  getAnalytics() {
-    return {
-      totalPosts: 42,
-      postsByAuthor: {
-        'Alice': 10,
-        'Bob': 15,
-        'Charlie': 17
-      }
-    };
+  constructor(private http: HttpClient) {}
+
+  getAllPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(this.apiUrl);
   }
 
-  getPosts(): Promise<Post[]> {
-    return Promise.resolve([
-      {
-        id: 1,
-        theme: { id: '1', name: 'Technology' },
-        createdAt: '2023-06-01T00:00:00Z',
-        likes: 10
-      },
-      {
-        id: 2,
-        theme: { id: '2', name: 'Science' },
-        createdAt: '2023-06-02T00:00:00Z',
-        likes: 5
-      },
-      {
-        id: 3,
-        theme: { id: '1', name: 'Technology' },
-        createdAt: '2023-06-03T00:00:00Z',
-        likes: 8
-      }
-    ]);
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(this.apiUrl, post);
   }
 
-  getThemes(): Promise<Theme[]> {
-    return Promise.resolve([
-      { id: '1', name: 'Technology', description: 'Posts about technology' },
-      { id: '2', name: 'Science', description: 'Posts about science' }
-    ]);
+  updatePost(id: number, post: Post): Observable<Post> {
+    return this.http.put<Post>(`${this.apiUrl}/${id}`, post);
   }
 
-  getPostById(id: string): Promise<Post | null> {
-    return this.getPosts().then(posts => posts.find(post => post.id.toString() === id) || null);
+  deletePost(id: number): Observable<void> {
+      const token = localStorage.getItem('token') || '';
+    
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
-  getPostsByTheme(themeId: string): Promise<Post[]> {
-    return this.getPosts().then(posts => posts.filter(post => post.theme.id.toString() === themeId));
+  getPostById(id: number): Observable<Post> {
+    const token = localStorage.getItem('token') || '';
+    
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Post>(`${this.apiUrl}/${id}`, {headers});
   }
 }

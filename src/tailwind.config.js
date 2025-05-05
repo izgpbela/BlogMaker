@@ -1,5 +1,4 @@
 
-import type { Services } from "tailwindcss";
 
 export default {
 	darkMode: ["class"],

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -10,44 +9,51 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./cadastro.component.scss']
 })
 export class CadastroComponent {
-  cadastroForm: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private authService: AuthService
-  ) {
-    // Inicializando o formulário com validações
-    this.cadastroForm = this.fb.group({
-      nome: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarSenha: ['', [Validators.required]]
-    }, { validator: this.senhasIguais });
-  }
-
-  // Função de validação para garantir que a senha e a confirmação sejam iguais
-  senhasIguais(group: FormGroup) {
-    const senha = group.get('senha')?.value;
-    const confirmarSenha = group.get('confirmarSenha')?.value;
-    return senha === confirmarSenha ? null : { senhasDiferentes: true };
-  }
-
-  // Função chamada quando o formulário for enviado
-  onSubmit() {
-    if (this.cadastroForm.valid) {
-      this.authService.register(this.cadastroForm.value).subscribe({
-        next: () => {
-          this.snackBar.open('Cadastro realizado com sucesso!', 'Fechar', { duration: 3000 });
-          this.router.navigate(['/login']);
-        },
-        error: () => {
-          this.snackBar.open('Erro ao realizar cadastro. Tente novamente.', 'Fechar', { duration: 3000 });
-        }
+    registerForm: FormGroup;
+    registerError: string = '';
+    registerSuccess: string = '';
+  
+    constructor(
+      private fb: FormBuilder,
+      private authService: AuthService,
+      private router: Router
+    ) {
+      this.registerForm = this.fb.group({
+        name: ['', Validators.required],
+        username: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
       });
-    } else {
-      this.snackBar.open('Formulário inválido. Verifique os campos.', 'Fechar', { duration: 3000 });
     }
-  }
+  
+    register() {
+      if (this.registerForm.valid) {
+        const { name, username, password } = this.registerForm.value;
+    
+        this.authService.register(name, username, password).subscribe({
+          next: (response) => {
+            // Cadastro deu certo! Agora vamos logar
+            this.authService.login(username, password).subscribe({
+              next: (loginResponse) => {
+                // Sucesso no login
+                localStorage.setItem('token', loginResponse.token); // <-- salva o token
+                this.router.navigate(['/posts']); // <-- redireciona pro posts
+              },
+              error: (error) => {
+                this.registerError = 'Erro ao fazer login automático. Tente entrar manualmente.';
+              }
+            });
+          },
+          error: (error) => {
+            if (error.status === 400 || error.status === 409) {
+              this.registerError = 'Usuário já existe ou dados inválidos.';
+            } else {
+              this.registerError = 'Erro no servidor. Tente novamente mais tarde.';
+            }
+          }
+        });
+      } else {
+        this.registerError = 'Preencha todos os campos corretamente.';
+        this.registerForm.markAllAsTouched();
+      }
+    }
 }
