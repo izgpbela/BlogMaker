@@ -1,14 +1,11 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { CadastroComponent } from './pages/cadastro/cadastro.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PostagensComponent } from './pages/postagens/postagens.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'cadastro', component: CadastroComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'postagens', component: PostagensComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', loadComponent: () => import('./pages/login.component').then(m => m.LoginComponent) },
+  { path: 'register', loadComponent: () => import('./pages/register.component').then(m => m.RegisterComponent) },
+  { path: 'themes', loadComponent: () => import('./pages/themes.component').then(m => m.ThemesComponent) },
+  { path: 'create-post', loadComponent: () => import('./pages/create-post.component').then(m => m.CreatePostComponent), canActivate: [authGuard] },
+  { path: 'analytics', loadComponent: () => import('./pages/analytics.component').then(m => m.AnalyticsComponent), canActivate: [authGuard] },
+  { path: 'home', loadComponent: () => import('./pages/home.component').then(m => m.HomeComponent) }
 ];
-// Adicione outras rotas conforme necessário

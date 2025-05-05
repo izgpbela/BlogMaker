@@ -1,21 +1,9 @@
-export interface Author {
-  name: string;
-  imageUrl?: string;
-}
-
-export interface Theme {
-  name: string;
-}
-
+// src/app/models/post.model.ts
 export interface Post {
-  id: number | string;
+  id: string;
+  theme: string;
   title: string;
-  summary: string;
   content: string;
-  imageUrl?: string;
+  author: string;
   createdAt: Date;
-  likes: number;
-  comments: number;
-  author: Author;
-  theme: Theme;
 }
