@@ -1,0 +1,35 @@
+<div class="p-6 space-y-6">
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <mat-card class="flex items-center p-4">
+        <div class="flex-1">
+          <h3 class="text-xl font-semibold">Total de Postagens</h3>
+          <p class="text-3xl">{{ totalPosts }}</p>
+        </div>
+        <mat-icon class="text-5xl text-blue-500">description</mat-icon>
+      </mat-card>
+  
+      <mat-card class="col-span-2 p-4">
+        <h3 class="text-xl font-semibold mb-2">Últimas Postagens</h3>
+        <ul class="list-disc list-inside">
+          <li *ngFor="let post of latestPosts">
+            <span class="font-medium">{{ post.titulo }}</span>
+            <span class="text-sm text-gray-600">({{ post.data | date:'shortDate' }})</span>
+          </li>
+        </ul>
+      </mat-card>
+    </div>
+  
+    <!-- Gráfico de barras -->
+    <mat-card class="p-4">
+      <h3 class="text-xl font-semibold mb-4">Postagens por Autor</h3>
+      <div class="w-full">
+        <canvas baseChart
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [type]="'bar'">
+        </canvas>
+      </div>
+    </mat-card>
+  </div>
+  
