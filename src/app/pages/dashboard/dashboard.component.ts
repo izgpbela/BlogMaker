@@ -1,58 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../../services/post.service';
+
+interface PostsAnalytics {
+  totalPosts: number;
+  postsByAuthor: { [author: string]: number };
+}
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  totalPosts: number = 0;
-  latestPosts: any[] = [];
-  postsByAuthor: { author: string; count: number }[] = [];
+  analytics: PostsAnalytics | null = null;
 
-  // Chart data example for bar chart
-  barChartData: any;
-  barChartOptions: any;
-
-  constructor() {}
+  constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-    // Initialize with dummy data
-    this.totalPosts = 42;
-    this.latestPosts = [
-      { id: 1, title: 'Post 1', author: 'Author A', date: '2024-06-01' },
-      { id: 2, title: 'Post 2', author: 'Author B', date: '2024-06-02' },
-      { id: 3, title: 'Post 3', author: 'Author A', date: '2024-06-03' }
-    ];
-    this.postsByAuthor = [
-      { author: 'Author A', count: 20 },
-      { author: 'Author B', count: 15 },
-      { author: 'Author C', count: 7 }
-    ];
-
-    this.setupChart();
+    this.analytics = this.postService.getAnalytics();
   }
 
-  setupChart(): void {
-    this.barChartData = {
-      labels: this.postsByAuthor.map(p => p.author),
-      datasets: [
-        {
-          label: 'Posts by Author',
-          data: this.postsByAuthor.map(p => p.count),
-          backgroundColor: '#3f51b5'
-        }
-      ]
-    };
-
-    this.barChartOptions = {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          precision: 0
-        }
-      }
-    };
+  prepareChartData(postsByAuthor: { [author: string]: number }) {
+    return Object.entries(postsByAuthor).map(([author, count]) => ({
+      name: author,
+      value: count
+    }));
   }
 }

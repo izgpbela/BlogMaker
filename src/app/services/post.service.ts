@@ -1,32 +1,70 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
+interface Theme {
+  id: number | string;
+  name: string;
+  description?: string;
+}
+
+interface Post {
+  id: number | string;
+  theme: Theme;
+  createdAt: string;
+  likes: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  private baseUrl = 'http://localhost:3000/api/posts'; // Adjust backend URL as needed
+  constructor() {}
 
-  constructor(private http: HttpClient) { }
-
-  getPosts(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl);
+  getAnalytics() {
+    return {
+      totalPosts: 42,
+      postsByAuthor: {
+        'Alice': 10,
+        'Bob': 15,
+        'Charlie': 17
+      }
+    };
   }
 
-  getPostById(id: number): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '/' + id);
+  getPosts(): Promise<Post[]> {
+    return Promise.resolve([
+      {
+        id: 1,
+        theme: { id: '1', name: 'Technology' },
+        createdAt: '2023-06-01T00:00:00Z',
+        likes: 10
+      },
+      {
+        id: 2,
+        theme: { id: '2', name: 'Science' },
+        createdAt: '2023-06-02T00:00:00Z',
+        likes: 5
+      },
+      {
+        id: 3,
+        theme: { id: '1', name: 'Technology' },
+        createdAt: '2023-06-03T00:00:00Z',
+        likes: 8
+      }
+    ]);
   }
 
-  createPost(post: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl, post);
+  getThemes(): Promise<Theme[]> {
+    return Promise.resolve([
+      { id: '1', name: 'Technology', description: 'Posts about technology' },
+      { id: '2', name: 'Science', description: 'Posts about science' }
+    ]);
   }
 
-  updatePost(post: any): Observable<any> {
-    return this.http.put<any>(this.baseUrl + '/' + post.id, post);
+  getPostById(id: string): Promise<Post | null> {
+    return this.getPosts().then(posts => posts.find(post => post.id.toString() === id) || null);
   }
 
-  deletePost(id: number): Observable<void> {
-    return this.http.delete<void>(this.baseUrl + '/' + id);
+  getPostsByTheme(themeId: string): Promise<Post[]> {
+    return this.getPosts().then(posts => posts.filter(post => post.theme.id.toString() === themeId));
   }
 }

@@ -1,7 +1,16 @@
-<nav>
-  <a routerLink="/login">Login</a> |
-  <a routerLink="/cadastro">Cadastro</a> |
-  <a routerLink="/dashboard">Dashboard</a> |
-  <a routerLink="/postagens">Postagens</a>
-</nav>
-
+<app-navbar>
+  
+</app-navbar>
+<main class="flex-grow">
+  <router-outlet>
+    <!-- This is where the routed components will be displayed. For example, the blog posts or the post details. -->
+    <!-- The content of this router outlet will change based on the current route. -->
+    <!-- For example, if the user navigates to /posts, the posts component will be displayed here. -->
+  </router-outlet>
+</main>
+<app-footer>
+  
+  <p>Footer content goes here.</p>
+  <p>Additional footer information can be added here.</p>
+  
+</app-footer>

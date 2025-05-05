@@ -1,7 +1,21 @@
+export interface Author {
+  name: string;
+  imageUrl?: string;
+}
+
+export interface Theme {
+  name: string;
+}
+
 export interface Post {
-  id?: number;
+  id: number | string;
   title: string;
+  summary: string;
   content: string;
-  author: string;
-  date: string;
+  imageUrl?: string;
+  createdAt: Date;
+  likes: number;
+  comments: number;
+  author: Author;
+  theme: Theme;
 }

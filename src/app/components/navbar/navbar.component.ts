@@ -14,11 +14,9 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Simplified user and auth state initialization
     const token = localStorage.getItem('authToken');
     this.isAuthenticated = !!token;
     if (this.isAuthenticated) {
-      // For demo, user info can be stored in localStorage or fetched from a user service
       const userData = localStorage.getItem('user');
       this.user = userData ? JSON.parse(userData) : null;
     }
@@ -33,6 +31,5 @@ export class NavbarComponent implements OnInit {
     this.isAuthenticated = false;
     this.user = null;
     this.isMenuOpen = false;
-    // Optionally navigate to login or home page after logout
   }
 }
