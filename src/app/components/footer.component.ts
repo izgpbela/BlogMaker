@@ -1,4 +1,3 @@
-// src/app/components/footer/footer.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -12,38 +11,49 @@ import { RouterModule } from '@angular/router';
   template: `
     <footer class="bg-primary-900 text-primary-50 mt-auto">
       <div class="container mx-auto px-4 py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex flex-col lg:flex-row justify-between items-start">
           <!-- Logo e slogan -->
-          <div class="mb-6 md:mb-0 text-center md:text-left">
+          <div class="mb-8 lg:mb-0 text-center lg:text-left w-full lg:w-auto">
             <h2 class="text-xl font-bold mb-2">Blog Maker</h2>
-            <p class="text-primary-200">Uma plataforma para compartilhar conhecimento, ideias e histórias.</p>
+            <p class="text-primary-200 max-w-md mx-auto lg:mx-0">
+              Uma plataforma para compartilhar conhecimento, ideias e histórias.
+            </p>
           </div>
 
-          <!-- Links -->
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-            <div class="flex flex-col">
-              <a routerLink="/home" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Home</a>
-              <a routerLink="/themes" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Themes</a>
-              <a routerLink="/analytics" class="hover:text-secondary-300 transition-colors duration-300">Analytics</a>
-            </div>
-            <div class="flex flex-col">
-              <a routerLink="/join" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Join Us</a>
-              <a routerLink="/terms" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Terms of Service</a>
-              <a routerLink="/privacy" class="hover:text-secondary-300 transition-colors duration-300">Privacy Policy</a>
-            </div>
-            <div class="flex flex-col">
-              <a routerLink="/cookie-policy" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Cookie Policy</a>
+          <!-- Links - Mobile optimized -->
+          <div class="w-full lg:w-auto">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
+              <div class="flex flex-col">
+                <h3 class="font-semibold mb-3 text-primary-100">Navigation</h3>
+                <a routerLink="/home" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Home</a>
+                <a routerLink="/themes" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Themes</a>
+                <a routerLink="/analytics" class="hover:text-secondary-300 transition-colors duration-300">Analytics</a>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="font-semibold mb-3 text-primary-100">Legal</h3>
+                <a routerLink="/join" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Join Us</a>
+                <a routerLink="/terms" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Terms</a>
+                <a routerLink="/privacy" class="hover:text-secondary-300 transition-colors duration-300">Privacy</a>
+              </div>
+              <div class="flex flex-col">
+                <h3 class="font-semibold mb-3 text-primary-100">More</h3>
+                <a routerLink="/cookie-policy" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Cookies</a>
+                <a routerLink="/contact" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Contact</a>
+                <a routerLink="/faq" class="hover:text-secondary-300 transition-colors duration-300">FAQ</a>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Copyright -->
-        <div class="border-t border-primary-700 mt-8 pt-6 text-center text-primary-300">
-          &copy; 2025 Blog Maker. All rights reserved.
+        <div class="border-t border-primary-700 mt-8 pt-6 text-center text-primary-300 text-sm sm:text-base">
+          &copy; {{ currentYear }} Blog Maker. All rights reserved.
         </div>
       </div>
     </footer>
   `,
   styles: []
 })
-export class FooterComponent {}
+export class FooterComponent {
+  currentYear = new Date().getFullYear();
+}

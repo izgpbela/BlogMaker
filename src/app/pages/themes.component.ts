@@ -57,6 +57,12 @@ import { RouterModule } from '@angular/router';
           [posts]="designPosts"
           icon="palette">
         </app-theme-card>
+        <app-theme-card 
+          title="Carreira Technology" 
+          description="Carreira na tecnologia"
+          [posts]="webDevPosts"
+          icon="palette">
+        </app-theme-card>
       </div>
     </div>
   `,

@@ -31,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
         <mat-card-header>
           <mat-card-title class="post-title">Nova Postagem</mat-card-title>
         </mat-card-header>
-        
+       
         <mat-card-content>
           <form [formGroup]="postForm" class="post-form">
             <mat-form-field appearance="outline" class="w-full">

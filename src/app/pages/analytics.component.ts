@@ -1,18 +1,13 @@
 // src/app/pages/analytics/analytics.component.ts
 import { Component, AfterViewInit } from '@angular/core';
 import { Post } from '../models/post';
-import { ScaleType } from '@swimlane/ngx-charts';
-// Define or import the Post interface
-
-
+import { ScaleType, Color } from '@swimlane/ngx-charts';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PostService } from '../services/post.service';
 import { map } from 'rxjs/operators';
-import { HeaderComponent } from '../components/header.component';
-import { FooterComponent } from '../components/footer.component';
 
 @Component({
   selector: 'app-analytics',
@@ -25,7 +20,7 @@ import { FooterComponent } from '../components/footer.component';
   ],
   template: `
     <div class="analytics-container">
-      <h1 class="page-title">Dashboard</h1>
+      <h1 class="page-title">analytics</h1>
       
       <!-- Cards de Estatísticas -->
       <div class="stats-grid">
@@ -151,15 +146,16 @@ import { FooterComponent } from '../components/footer.component';
 })
 export class AnalyticsComponent implements AfterViewInit {
   view: [number, number] = [0, 400];
-  colorScheme = {
+  colorScheme: Color = {
     name: 'custom',
+    selectable: true,
     group: ScaleType.Ordinal,
     domain: ['#7E57C2', '#B39DDB', '#D1C4E9', '#EDE7F6']
   };
 
   // Dados de exemplo (substituir por dados reais do serviço)
-  totalPosts = 0;
-  totalAuthors = 0;
+  totalPosts = 5;
+  totalAuthors = 7;
   avgPostsPerAuthor = 0;
   topAuthor: any = null;
   postsByAuthor: any[] = [];
