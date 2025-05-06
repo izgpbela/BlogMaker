@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
       <div class="header-section">
         <h2 class="section-title">Explore Themes</h2>
         <p class="section-description">
-          Discover content organized by themes. Each theme contains posts about specific topics.
+        Descubra conteúdo organizado por temas. Cada tema contém postagens sobre tópicos específicos.
         </p>
       </div>
       
@@ -60,7 +60,7 @@ import { RouterModule } from '@angular/router';
         <app-theme-card 
           title="Carreira Technology" 
           description="Carreira na tecnologia"
-          [posts]="webDevPosts"
+          [posts]="designPosts"
           icon="palette">
         </app-theme-card>
       </div>

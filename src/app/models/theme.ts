@@ -4,4 +4,3 @@ export interface Theme {
     description: string;
     createdAt: Date;
   }
-  
