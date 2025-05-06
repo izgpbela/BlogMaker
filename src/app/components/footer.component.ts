@@ -10,48 +10,40 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterModule],
   template: `
-    <footer class="bg-gray-800 text-white mt-auto">
+    <footer class="bg-primary-900 text-primary-50 mt-auto">
       <div class="container mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <!-- Logo e slogan -->
           <div class="mb-6 md:mb-0 text-center md:text-left">
             <h2 class="text-xl font-bold mb-2">Blog Maker</h2>
-            <p class="text-gray-400">A platform for sharing knowledge, ideas, and stories.</p>
+            <p class="text-primary-200">A platform for sharing knowledge, ideas, and stories.</p>
           </div>
 
           <!-- Links -->
           <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
             <div class="flex flex-col">
-              <a routerLink="/" class="mb-2 hover:text-primary transition-colors">Home</a>
-              <a routerLink="/themes" class="mb-2 hover:text-primary transition-colors">Themes</a>
-              <a routerLink="/analytics" class="hover:text-primary transition-colors">Analytics</a>
+              <a routerLink="/" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Home</a>
+              <a routerLink="/themes" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Themes</a>
+              <a routerLink="/analytics" class="hover:text-secondary-300 transition-colors duration-300">Analytics</a>
             </div>
             <div class="flex flex-col">
-              <a routerLink="/join" class="mb-2 hover:text-primary transition-colors">Join Us</a>
-              <a routerLink="/terms" class="mb-2 hover:text-primary transition-colors">Terms of Service</a>
-              <a routerLink="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a>
+              <a routerLink="/join" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Join Us</a>
+              <a routerLink="/terms" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Terms of Service</a>
+              <a routerLink="/privacy" class="hover:text-secondary-300 transition-colors duration-300">Privacy Policy</a>
             </div>
             <div class="flex flex-col">
-              <a routerLink="/cookie-policy" class="mb-2 hover:text-primary transition-colors">Cookie Policy</a>
+              <a routerLink="/cookie-policy" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Cookie Policy</a>
             </div>
           </div>
         </div>
 
         <!-- Copyright -->
-        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+        <div class="border-t border-primary-700 mt-8 pt-6 text-center text-primary-300">
           &copy; 2025 Blog Maker. All rights reserved.
         </div>
       </div>
     </footer>
   `,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-    .hover-text-primary:hover {
-      color: #3f51b5;
-    }
-  `]
+  styles: []
 })
 export class FooterComponent {}

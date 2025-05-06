@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FooterComponent } from '../components/footer.component';
 
+
 @Component({
   selector: 'app-create-post',
   standalone: true,

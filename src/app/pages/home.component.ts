@@ -6,43 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
+import { HeaderComponent } from '../components/header.component';
+import { FooterComponent } from '../components/footer.component';
+import { PostFormComponent } from '../components/post-form.component';
+
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterModule],
   template: `
     <div class="min-h-screen flex flex-col">
-      <!-- Header -->
-      <mat-toolbar color="primary" class="shadow-md">
-        <span class="text-xl font-bold">Blog Maker</span>
-        
-        <nav class="ml-8 hidden md:flex gap-4">
-          <a mat-button routerLink="/" routerLinkActive="active">Home</a>
-          <a mat-button routerLink="/themes" routerLinkActive="active">Themes</a>
-          <a mat-button routerLink="/analytics" routerLinkActive="active">Analytics</a>
-          <a mat-button routerLink="/login" routerLinkActive="active">Login</a>
-          <a mat-button routerLink="/resigno" routerLinkActive="active">Resigno</a>
-        </nav>
-
-        <button mat-icon-button 
-        class="!bg-primary-500 hover:!bg-primary-600 !text-white"
-        (click)="toggleMobileMenu()">
-        <mat-icon>menu</mat-icon>
-        </button>
-      </mat-toolbar>
-
-      <!-- Mobile Menu -->
-      <div class="md:hidden bg-gray-100" *ngIf="mobileMenuOpen">
-        <div class="flex flex-col p-4 gap-2">
-          <a mat-button routerLink="/" routerLinkActive="active" (click)="mobileMenuOpen = false">Home</a>
-          <a mat-button routerLink="/themes" routerLinkActive="active" (click)="mobileMenuOpen = false">Themes</a>
-          <a mat-button routerLink="/analytics" routerLinkActive="active" (click)="mobileMenuOpen = false">Analytics</a>
-          <a mat-button routerLink="/login" routerLinkActive="active" (click)="mobileMenuOpen = false">Login</a>
-          <a mat-button routerLink="/resigno" routerLinkActive="active" (click)="mobileMenuOpen = false">Resigno</a>
-        </div>
-      </div>
+      
 
       <!-- Hero Section -->
       <main class="flex-grow flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-100">
@@ -64,20 +40,8 @@ import { RouterModule } from '@angular/router';
         </div>
       </main>
 
-      <!-- Footer -->
-      <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-          <p>&copy; 2025 Blog Maker. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
   `,
-  styles: [`
-    .active {
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-    }
-  `]
+
 })
 export class HomeComponent {
   mobileMenuOpen = false;

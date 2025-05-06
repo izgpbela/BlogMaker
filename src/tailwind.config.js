@@ -2,92 +2,79 @@
 module.exports = {
   content: [
     "./src/**/*.{html,ts}",
-    "./projects/**/*.{html,ts}" // Caso tenha projetos adicionais
+    "./projects/**/*.{html,ts}"
   ],
-  darkMode: 'class', // Habilita o modo escuro via classe (opcional)
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        // Cores principais
+        // Paleta de cores principal
         primary: {
-          DEFAULT: '#3f51b5', // Material Indigo
-          50: '#e8eaf6',
-          100: '#c5cae9',
-          200: '#9fa8da',
-          300: '#7986cb',
-          400: '#5c6bc0',
-          500: '#3f51b5',
-          600: '#3949ab',
-          700: '#303f9f',
-          800: '#283593',
-          900: '#1a237e'
+          DEFAULT: '#7E57C2',
+          50: '#F3E5F5',
+          100: '#E1BEE7',
+          200: '#CE93D8',
+          300: '#BA68C8',
+          400: '#AB47BC',
+          500: '#9C27B0',
+          600: '#8E24AA',
+          700: '#7B1FA2',
+          800: '#6A1B9A',
+          900: '#4A148C'
         },
-        // Cores secundárias para o blog
+        // Cores secundárias
         secondary: {
-          DEFAULT: '#ff4081', // Material Pink A400
-          50: '#fce4ec',
-          100: '#f8bbd0',
-          200: '#f48fb1',
-          300: '#f06292',
-          400: '#ec407a',
-          500: '#e91e63',
-          600: '#d81b60',
-          700: '#c2185b',
-          800: '#ad1457',
-          900: '#880e4f'
+          DEFAULT: '#B39DDB',
+          50: '#F8F4FF',
+          100: '#EDE7F6',
+          200: '#D1C4E9',
+          300: '#B39DDB',
+          400: '#9575CD',
+          500: '#7E57C2',
+          600: '#673AB7',
+          700: '#5E35B1',
+          800: '#512DA8',
+          900: '#4527A0'
         },
-        // Cores de texto e fundo
+        // Cores de texto
         text: {
-          primary: '#212121',
-          secondary: '#757575'
+          primary: '#2D3748',
+          secondary: '#718096'
         },
+        // Cores de fundo
         background: {
-          DEFAULT: '#ffffff',
-          paper: '#f5f5f5'
+          DEFAULT: '#FAF5FF',
+          paper: '#EDE7F6'
         }
       },
-      // Tipografia
       fontFamily: {
         sans: ['Roboto', 'sans-serif'],
         display: ['"Roboto Condensed"', 'sans-serif']
       },
-      // Espaçamentos customizados
       spacing: {
         '128': '32rem',
         '144': '36rem'
       },
-      // Bordas
       borderRadius: {
         'xl': '1rem',
         '2xl': '1.5rem'
       }
     },
-    // Sobrescreva configurações padrão se necessário
     container: {
       center: true,
       padding: '1.5rem'
     }
   },
   plugins: [
-    require('@tailwindcss/typography'), // Para estilos de tipografia em conteúdo markdown
-    require('@tailwindcss/forms'), // Para estilização de formulários
-    require('@tailwindcss/aspect-ratio'), // Para manter proporções de elementos
-    require('@tailwindcss/line-clamp') // Para truncar texto com ellipsis
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp')
   ],
-  // Configurações para purge (otimização de produção)
-  purge: {
-    enabled: process.env.NODE_ENV === 'production',
-    content: [
-      "./src/**/*.{html,ts}",
-      "./projects/**/*.{html,ts}"
-    ],
-    options: {
-      safelist: [
-        'bg-primary-500',
-        'text-primary-500',
-        'hover:bg-primary-600',
-        'hover:text-primary-600'
-      ]
-    }
-  }
-};
+  safelist: [
+    'bg-primary-500',
+    'text-primary-500',
+    'hover:bg-primary-600',
+    'hover:text-primary-600'
+  ]
+}

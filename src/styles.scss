@@ -1,39 +1,17 @@
-
 /* styles.css */
-@import '@swimlane/ngx-charts/index.css';
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
+/* Integração com Angular Material */
+.mat-toolbar {
+  @apply bg-primary-500 text-white;
 }
-  
-  /* Garante que o footer fique no fundo */
-  app-root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
 
-  /* styles.css */
-main {
-    min-height: calc(100vh - 64px - 200px); /* Ajuste 64px header e 200px footer */
-  }
+.mat-card {
+  @apply bg-background-paper shadow-md rounded-2xl;
+}
 
-  /* Ajustes para o tema Analytics */
-.ngx-charts text {
-    fill: #666 !important;
-    font-size: 12px !important;
-  }
-  
-  .ngx-charts .axis-label {
-    fill: #333 !important;
-    font-size: 14px !important;
-  }
-
-/* You can add global styles to this file, and also import other style files */
-
+.mat-button {
+  @apply transition-colors duration-300;
+}

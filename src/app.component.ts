@@ -26,5 +26,5 @@ import { FooterComponent } from './app/components/footer.component';
 
 })
 export class AppComponent {
-  title = 'BlogMaker';
+  title = 'Blog Maker';
 }

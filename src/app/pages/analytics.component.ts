@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
+import { PostFormComponent } from '../components/post-form.component';
+import { FooterComponent } from '../components/footer.component';
+import { HeaderComponent } from '../components/header.component';
 
 // Importando os componentes diretamente do ngx-charts
 import { NgxChartsModule, BarVerticalComponent } from '@swimlane/ngx-charts';

@@ -3,11 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-<<<<<<< HEAD
-    "blog-pessoal": {
-=======
     "personal-blog": {
->>>>>>> 53478f649f281b03e87fcf4290bcb8a8eeef2331
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,11 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-<<<<<<< HEAD
-            "outputPath": "dist/blog-pessoal",
-=======
             "outputPath": "dist/personal-blog",
->>>>>>> 53478f649f281b03e87fcf4290bcb8a8eeef2331
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -36,14 +28,12 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
-<<<<<<< HEAD
               "@angular/material/prebuilt-themes/rose-red.css",
-=======
->>>>>>> 53478f649f281b03e87fcf4290bcb8a8eeef2331
               "src/styles.scss"
             ],
             "scripts": []
@@ -53,23 +43,13 @@
               "budgets": [
                 {
                   "type": "initial",
-<<<<<<< HEAD
                   "maximumWarning": "500kB",
                   "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-=======
-                  "maximumWarning": "2MB",
-                  "maximumError": "5MB"
-                },
-                {
-                  "type": "anyComponentStyle",
                   "maximumWarning": "6kB",
                   "maximumError": "10kB"
->>>>>>> 53478f649f281b03e87fcf4290bcb8a8eeef2331
                 }
               ],
               "outputHashing": "all"
@@ -86,17 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-<<<<<<< HEAD
-              "buildTarget": "blog-pessoal:build:production"
-            },
-            "development": {
-              "buildTarget": "blog-pessoal:build:development"
-=======
               "buildTarget": "personal-blog:build:production"
             },
             "development": {
               "buildTarget": "personal-blog:build:development"
->>>>>>> 53478f649f281b03e87fcf4290bcb8a8eeef2331
             }
           },
           "defaultConfiguration": "development"
@@ -116,14 +89,12 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
-<<<<<<< HEAD
-              "@angular/material/prebuilt-themes/rose-red.css",
-=======
->>>>>>> 53478f649f281b03e87fcf4290bcb8a8eeef2331
+              "node_modules/@swimlane/ngx-charts/themes/light.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -131,5 +102,6 @@
         }
       }
     }
-  }
+  },
+  "defaultProject": "personal-blog"
 }
