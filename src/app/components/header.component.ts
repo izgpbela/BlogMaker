@@ -24,7 +24,7 @@ import { PostFormComponent } from '../components/post-form.component';
       <span class="text-xl font-bold">Blog Maker</span>
       
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex gap-4 ml-auto">
+      <nav class="hidden md:flex space-x-4 ml-auto text-xl font-medium ">
         <a mat-button routerLink="/home" routerLinkActive="active" 
            class="hover:bg-primary-600 hover:text-white transition-colors duration-300">
           Home

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Post } from '../models/post';
 import { environment } from '../environments/environment.prod';  // Import the environment file
+import { AnalyticsComponent } from '../pages/analytics.component';
+// Define the Post interface if not already defined
 
 
 @Injectable({
@@ -17,8 +19,18 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  getAllPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.apiUrl);
+  getPosts(): Observable<Post[]> {
+    const mockPosts: Post[] = [
+      { id: 1, title: 'Post 1', author: 'Author A', date: '2023-01-01', theme: 'Theme A', content: 'Content of Post 1' },
+      { id: 2, title: 'Post 2', author: 'Author B', date: '2023-01-02', theme: 'Theme B', content: 'Content of Post 2' },
+      { id: 3, title: 'Post 3', author: 'Author A', date: '2023-01-03', theme: 'Theme A', content: 'Content of Post 3' },
+      { id: 4, title: 'Post 4', author: 'Author C', date: '2023-01-04', theme: 'Theme C', content: 'Content of Post 4' },
+      { id: 5, title: 'Post 5', author: 'Author B', date: '2023-01-05', theme: 'Theme B', content: 'Content of Post 5' }
+    ];
+    return new Observable<Post[]>(observer => {
+      observer.next(mockPosts);
+      observer.complete();
+    });
   }
 
   createPost(post: Post): Observable<Post> {

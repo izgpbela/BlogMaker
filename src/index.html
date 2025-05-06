@@ -112,6 +112,9 @@
     .mat-toolbar {
       background-color: #7E57C2 !important;
       color: white !important;
+      font-size: 1.25rem; /* Equivalente ao text-xl do Tailwind */
+      font-weight: 500;   /* Peso médio para melhor legibilidade */
+      margin: 0 12px;     /* Espaçamento entre os itens */
     }
     
     .mat-raised-button.mat-primary {
@@ -138,6 +141,55 @@
     .dark .mat-card {
       background-color: #2D3748 !important;
     }
+    /* No arquivo SCSS do seu componente hero */
+.typewriter-effect {
+  display: inline-block;
+  position: relative;
+  font-family: 'Cascadia Mono', monospace;
+}
+
+.typewriter-effect::after {
+  content: "|";
+  position: absolute;
+  right: -8px;
+  color: #7E57C2; /* Cor do cursor */
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Animação para cada linha */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.welcome-line {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end);
+  animation: typing 2s steps(40, end); /* Mais rápido (2s) */
+}
+
+
+
+.blogmaker-line {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end) 3.5s; /* Delay de 3.5s */
+  animation-fill-mode: both;
+  animation: typing 2s steps(40, end) 2s; /* Delay correspondente */
+  
+  /* Adicionando uma nova animação para efeito visual */
+  animation: typing 2s steps(40, end) 2s, fadeIn 1s ease-in; /* Nova animação adicionada */
+}
+
+
   </style>
 </head>
 <body class="antialiased">

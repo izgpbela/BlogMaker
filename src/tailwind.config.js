@@ -77,4 +77,6 @@ module.exports = {
     'hover:bg-primary-600',
     'hover:text-primary-600'
   ]
+
+  
 }
