@@ -17,24 +17,22 @@ import { PostFormComponent } from '../components/post-form.component';
   standalone: true,
   imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterModule],
   template: `
-    <div class="min-h-screen flex flex-col">
-      
 
-      <!-- Hero Section -->
+            <!-- Hero Section -->
       <main class="flex-grow flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-100">
         <div class="text-center max-w-2xl px-4 py-16 sm:py-24 lg:py-32">
           <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-            Welcome to BlogScribe
+            Welcome to Blog Maker
           </h1>
           <p class="mt-6 text-xl text-gray-600">
-            Share your knowledge and stay updated with the latest in technology and development
+          Compartilhe seu conhecimento e fique atualizado com as últimas novidades em tecnologia e desenvolvimento
           </p>
           <div class="mt-10 flex justify-center gap-4">
             <a mat-raised-button color="primary" routerLink="/themes" class="text-lg px-6 py-3">
               Explore Themes
             </a>
-            <a mat-stroked-button routerLink="/login" class="text-lg px-6 py-3">
-              Start Writing
+            <a mat-stroked-button routerLink="/post-form" class="text-lg px-6 py-3">
+            Comece a escrever
             </a>
           </div>
         </div>

@@ -52,49 +52,6 @@ import { PostFormComponent } from '../components/post-form.component';
         </a>
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <button mat-icon-button class="md:hidden ml-auto" 
-              (click)="toggleMobileMenu()"
-              aria-label="Toggle menu">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </mat-toolbar>
-
-    <!-- Mobile Navigation -->
-    <div class="md:hidden bg-primary-800 text-primary-50 shadow-lg" *ngIf="mobileMenuOpen">
-      <div class="flex flex-col p-4 gap-2">
-        <a mat-button routerLink="/" routerLinkActive="active" 
-           class="hover:bg-primary-600 hover:text-white transition-colors duration-300"
-           (click)="toggleMobileMenu()">
-          Home
-        </a>
-        <a mat-button routerLink="/themes" routerLinkActive="active"
-           class="hover:bg-primary-600 hover:text-white transition-colors duration-300"
-           (click)="toggleMobileMenu()">
-          Themes
-        </a>
-        <button mat-button
-           class="hover:bg-primary-600 hover:text-white transition-colors duration-300"
-           (click)="openPostForm(); toggleMobileMenu()">
-          New Post
-        </button>
-        <a mat-button routerLink="/analytics" routerLinkActive="active"
-           class="hover:bg-primary-600 hover:text-white transition-colors duration-300"
-           (click)="toggleMobileMenu()">
-          Analytics
-        </a>
-        <a mat-button routerLink="/login" routerLinkActive="active"
-           class="hover:bg-primary-600 hover:text-white transition-colors duration-300"
-           (click)="toggleMobileMenu()">
-          Login
-        </a>
-        <a mat-button routerLink="/register" routerLinkActive="active"
-           class="hover:bg-primary-600 hover:text-white transition-colors duration-300"
-           (click)="toggleMobileMenu()">
-          Register
-        </a>
-      </div>
-    </div>
   `,
   styles: [`
     .active {
