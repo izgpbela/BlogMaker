@@ -12,20 +12,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   standalone: true,
   imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
   template: `
-    <app-header />
-    <main class="min-h-screen">
-      <router-outlet />
-    </main>
     <div class="flex flex-col min-h-screen">
-      <app-header />
+      <app-header></app-header>
       <main class="flex-grow">
-        <router-outlet />
+        <router-outlet></router-outlet>
       </main>
-      <app-footer />
+      <app-footer></app-footer>
     </div>
   `,
   styles: []
-
 })
 export class AppComponent {
   title = 'Blog Maker';
