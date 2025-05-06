@@ -20,8 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule
   ],
   template: `
-    <mat-card class="max-w-2xl mx-auto my-8 bg-primary-50">
-      <mat-card-header class="bg-primary-700 text-primary-50 p-4">
+    <mat-card class="max-w-2xl mx-auto my-8 bg-secondary-300 shadow-lg rounded-lg">
+      <mat-card-header class="bg-secondary-700 text-secondary-50 p-4">
         <mat-card-title>{{ postId ? 'Edit Post' : 'Create New Post' }}</mat-card-title>
       </mat-card-header>
 

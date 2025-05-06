@@ -4,13 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './app/components/header.component';
 import { FooterComponent } from './app/components/footer.component';
-import { HomeComponent } from './app/pages/home.component';
-import { PostFormComponent } from './app/components/post-form.component';
-import { AnalyticsComponent } from './app/pages/analytics.component';
-import { ThemesComponent } from './app/pages/themes.component';
-import { LoginComponent } from './app/pages/login.component';
-import { RegisterComponent } from './app/pages/register.component';
-import { CreatePostComponent } from './app/pages/create-post.component';
+import { RouterLink } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',

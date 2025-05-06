@@ -16,13 +16,13 @@ import { RouterModule } from '@angular/router';
           <!-- Logo e slogan -->
           <div class="mb-6 md:mb-0 text-center md:text-left">
             <h2 class="text-xl font-bold mb-2">Blog Maker</h2>
-            <p class="text-primary-200">A platform for sharing knowledge, ideas, and stories.</p>
+            <p class="text-primary-200">Uma plataforma para compartilhar conhecimento, ideias e histórias.</p>
           </div>
 
           <!-- Links -->
           <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
             <div class="flex flex-col">
-              <a routerLink="/" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Home</a>
+              <a routerLink="/home" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Home</a>
               <a routerLink="/themes" class="mb-2 hover:text-secondary-300 transition-colors duration-300">Themes</a>
               <a routerLink="/analytics" class="hover:text-secondary-300 transition-colors duration-300">Analytics</a>
             </div>

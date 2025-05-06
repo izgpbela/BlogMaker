@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Blog Maker</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Google Fonts - Roboto (padrão do Material) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <!-- Ícones do Material -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#7E57C2',
+              50: '#F3E5F5',
+              100: '#E1BEE7',
+              200: '#CE93D8',
+              300: '#BA68C8',
+              400: '#AB47BC',
+              500: '#9C27B0',
+              600: '#8E24AA',
+              700: '#7B1FA2',
+              800: '#6A1B9A',
+              900: '#4A148C'
+            }
+          },
+          fontFamily: {
+            sans: ['Roboto', 'sans-serif'],
+            condensed: ['"Roboto Condensed"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #FAF5FF; /* Cor de fundo do tema */
+      color: #2D3748; /* Cor de texto primária */
+      margin: 0;
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Roboto Condensed', sans-serif;
+      color: #4A148C; /* Roxo escuro para títulos */
+    }
+    
+    /* Estilos globais para Angular Material */
+    .mat-toolbar {
+      background-color: #7E57C2 !important; /* Roxo médio */
+      color: white !important;
+    }
+    
+    .mat-raised-button.mat-primary {
+      background-color: #7E57C2 !important; /* Roxo médio */
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <app-root></app-root>
+  
+  <!-- Carrega os scripts do Angular -->
+  <script src="runtime.js" defer></script>
+  <script src="polyfills.js" defer></script>
+  <script src="styles.js" defer></script>
+  <script src="vendor.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

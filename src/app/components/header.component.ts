@@ -32,8 +32,9 @@ import { PostFormComponent } from '../components/post-form.component';
         <a mat-button routerLink="/themes" routerLinkActive="active"
            class="hover:bg-primary-600 hover:text-white transition-colors duration-300">
           Themes
+        
         </a>
-        <button mat-button
+        <button mat-button routerLink="/create-post" routerLinkActive="active"
            class="hover:bg-primary-600 hover:text-white transition-colors duration-300"
            (click)="openPostForm()">
           New Post

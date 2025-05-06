@@ -27,13 +27,16 @@ import { PostFormComponent } from '../components/post-form.component';
           <p class="mt-6 text-xl text-gray-600">
           Compartilhe seu conhecimento e fique atualizado com as últimas novidades em tecnologia e desenvolvimento
           </p>
+          <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blog-primary"></div>
           <div class="mt-10 flex justify-center gap-4">
             <a mat-raised-button color="primary" routerLink="/themes" class="text-lg px-6 py-3">
               Explore Themes
             </a>
-            <a mat-stroked-button routerLink="/post-form" class="text-lg px-6 py-3">
+            
+            <a mat-stroked-button color="primary" routerLink="/create-post" class="text-lg px-6 py-3">
             Comece a escrever
             </a>
+            
           </div>
         </div>
       </main>
