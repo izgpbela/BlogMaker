@@ -25,7 +25,7 @@ import { PostFormComponent } from '../components/post-form.component';
       
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex gap-4 ml-auto">
-        <a mat-button routerLink="/" routerLinkActive="active" 
+        <a mat-button routerLink="/home" routerLinkActive="active" 
            class="hover:bg-primary-600 hover:text-white transition-colors duration-300">
           Home
         </a>
