@@ -13,7 +13,7 @@ bootstrapApplication(AppComponent, {
   ]
 }).catch(err => console.error(err));
 
-import { appConfig } from './app/app.config';
+import { appConfig } from './app.config';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
