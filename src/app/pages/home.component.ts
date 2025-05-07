@@ -44,7 +44,7 @@ import { RouterModule } from '@angular/router';
           
           <a mat-raised-button 
             color="primary" 
-            routerLink="/create-post"   
+            routerLink="/create-post"
             class="!text-base sm:!text-lg px-5 py-2 sm:px-6 sm:py-3 hover:bg-primary-600 transition-colors flex items-center justify-center gap-2" 
             (click)="openPostForm()">
             <mat-icon class="!w-5 !h-5 sm:!w-6 sm:!h-6">edit</mat-icon>

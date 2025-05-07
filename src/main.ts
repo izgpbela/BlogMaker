@@ -2,7 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
@@ -13,8 +13,8 @@ bootstrapApplication(AppComponent, {
   ]
 }).catch(err => console.error(err));
 
-import { appConfig } from './app.config';
+// Removed import of appConfig as the file does not exist
+// import { appConfig } from './app.config';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
-
+// bootstrapApplication(AppComponent, appConfig)
+//   .catch((err) => console.error(err));

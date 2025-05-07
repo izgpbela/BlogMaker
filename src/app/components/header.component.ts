@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { PostFormComponent } from '../components/post-form.component';
+import { CreatePostComponent } from '../pages/create-post.component';
 
 @Component({
   selector: 'app-header',
@@ -35,8 +35,7 @@ import { PostFormComponent } from '../components/post-form.component';
           Themes
         </a>
         <button mat-button routerLink="/create-post" routerLinkActive="active"
-           class="hover:bg-primary-600 hover:text-white transition-colors duration-300" 
-           (click)="openPostForm()">
+           class="hover:bg-primary-600 hover:text-white transition-colors duration-300">
           New Post
         </button>
         <a mat-button routerLink="/analytics" routerLinkActive="active"
@@ -74,7 +73,7 @@ import { PostFormComponent } from '../components/post-form.component';
           </a>
           <button mat-button routerLink="/create-post" routerLinkActive="active"
              class="w-full text-left py-3 px-4 hover:bg-primary-600 hover:text-white transition-colors duration-300 rounded-none"
-             (click)="openPostForm(); mobileMenuOpen = false">
+             (click)="mobileMenuOpen = false">
             New Post
           </button>
           <a mat-button routerLink="/analytics" routerLinkActive="active"
@@ -118,11 +117,4 @@ export class HeaderComponent {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
-  openPostForm(): void {
-    this.dialog.open(PostFormComponent, {
-      width: '600px',
-      maxWidth: '90vw',
-      panelClass: 'dialog-container'
-    });
-  }
 }
