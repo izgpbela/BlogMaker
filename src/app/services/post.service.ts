@@ -8,8 +8,7 @@ import { environment } from '../environments/environment.prod';  // Import the e
   providedIn: 'root'
 })
 export class PostService {
-
-  private apiUrl = environment.apiUrl + '/postagens'; 
+  private apiUrl = 'http://localhost:8080/postagens';
 
   constructor(private http: HttpClient) {}
 
