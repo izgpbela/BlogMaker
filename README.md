@@ -45,8 +45,8 @@ O objetivo da aplicação é permitir o gerenciamento completo de postagens (**C
 
 ## 🚀 Deploy
 
-- **🔗 Frontend (Angular)**: [https://blog-maker-tan.vercel.app/](https://blog-maker-tan.vercel.app/)
-- **🔗 Backend (Spring Boot)**: `personal-blog-backend.railway.internal`
+- **🔗 Frontend (Angular)**: [https://blogmake.netlify.app/]((https://blogmake.netlify.app/home))
+- **🔗 Backend (Spring Boot)**: [https://blogpersoal.netlify.app/]((https://blogpersoal.netlify.app/))
 
 ---
 
