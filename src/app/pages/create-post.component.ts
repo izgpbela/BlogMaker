@@ -1,4 +1,3 @@
-// src/app/pages/create-post/create-post.component.ts
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,6 +9,23 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PostService } from '../services/post.service';
+import { Router } from '@angular/router';
+
+// Enums para status e tema
+enum Status {
+  RASCUNHO = 'RASCUNHO',
+  PUBLICADO = 'PUBLICADO',
+  ARQUIVADO = 'ARQUIVADO'
+}
+
+enum Tema {
+  BACKEND = 'BACKEND',
+  FRONTEND = 'FRONTEND',
+  INTELIGENCIA_ARTIFICIAL = 'INTELIGENCIA_ARTIFICIAL',
+  SEGURANCA = 'SEGURANCA',
+  DEVOPS = 'DEVOPS',
+  SOBRECARREIRA = 'SOBRECARREIRA'
+}
 
 @Component({
   selector: 'app-create-post',
@@ -51,16 +67,37 @@ import { PostService } from '../services/post.service';
               </label>
             </div>
 
+            <!-- Author Field -->
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Author*</mat-label>
+              <input matInput formControlName="autor" placeholder="Enter author name" required>
+              <mat-error *ngIf="postForm.get('autor')?.hasError('required')">
+                Author is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Status Field -->
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Status*</mat-label>
+              <mat-select formControlName="status" required>
+                <mat-option *ngFor="let status of statusOptions" [value]="status">
+                  {{ status }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="postForm.get('status')?.hasError('required')">
+                Status is required
+              </mat-error>
+            </mat-form-field>
+
             <!-- Theme Field -->
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Theme*</mat-label>
-              <mat-select formControlName="theme" required>
-                <mat-option value="technology">Technology</mat-option>
-                <mat-option value="web-development">Web Development</mat-option>
-                <mat-option value="mobile-development">Mobile Development</mat-option>
-                <mat-option value="ux-ui-design">UX/UI Design</mat-option>
+              <mat-select formControlName="tema" required>
+                <mat-option *ngFor="let tema of temaOptions" [value]="tema">
+                  {{ getTemaDisplayName(tema) }}
+                </mat-option>
               </mat-select>
-              <mat-error *ngIf="postForm.get('theme')?.hasError('required')">
+              <mat-error *ngIf="postForm.get('tema')?.hasError('required')">
                 Theme is required
               </mat-error>
             </mat-form-field>
@@ -68,11 +105,11 @@ import { PostService } from '../services/post.service';
             <!-- Title Field -->
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Title*</mat-label>
-              <input matInput formControlName="title" placeholder="Enter post title" required>
-              <mat-error *ngIf="postForm.get('title')?.hasError('required')">
+              <input matInput formControlName="titulo" placeholder="Enter post title" required>
+              <mat-error *ngIf="postForm.get('titulo')?.hasError('required')">
                 Title is required
               </mat-error>
-              <mat-error *ngIf="postForm.get('title')?.hasError('minlength')">
+              <mat-error *ngIf="postForm.get('titulo')?.hasError('minlength')">
                 Title must be at least 5 characters
               </mat-error>
             </mat-form-field>
@@ -80,13 +117,13 @@ import { PostService } from '../services/post.service';
             <!-- Content Field -->
             <mat-form-field appearance="outline" class="w-full">
               <mat-label>Content*</mat-label>
-              <textarea matInput formControlName="content" 
+              <textarea matInput formControlName="conteudo" 
                        placeholder="Write your post content here" 
                        rows="10" required></textarea>
-              <mat-error *ngIf="postForm.get('content')?.hasError('required')">
+              <mat-error *ngIf="postForm.get('conteudo')?.hasError('required')">
                 Content is required
               </mat-error>
-              <mat-error *ngIf="postForm.get('content')?.hasError('minlength')">
+              <mat-error *ngIf="postForm.get('conteudo')?.hasError('minlength')">
                 Content must be at least 20 characters
               </mat-error>
             </mat-form-field>
@@ -95,7 +132,7 @@ import { PostService } from '../services/post.service';
             <div class="form-actions">
               <button mat-stroked-button type="button" 
                       class="cancel-button"
-                      routerLink="/">
+                      (click)="cancel()">
                 Cancel
               </button>
               <button mat-raised-button color="primary" type="submit"
@@ -241,24 +278,44 @@ import { PostService } from '../services/post.service';
   `]
 })
 export class CreatePostComponent {
+  private readonly postService = inject(PostService);
+  private readonly router = inject(Router);
 
-private readonly postService = inject(PostService);
+  // Enums para uso no template
+  statusOptions = Object.values(Status);
+  temaOptions = Object.values(Tema);
 
   postForm = new FormGroup({
-    theme: new FormControl('', [Validators.required]),
-    title: new FormControl('', [
+    titulo: new FormControl('', [
       Validators.required,
       Validators.minLength(5)
     ]),
-    content: new FormControl('', [
+    conteudo: new FormControl('', [
       Validators.required,
       Validators.minLength(20)
-    ])
+    ]),
+    autor: new FormControl('', [Validators.required]),
+    status: new FormControl(Status.RASCUNHO, [Validators.required]),
+    tema: new FormControl('', [Validators.required]),
+    imagemUrl: new FormControl('')
   });
 
   imagePreview: string | ArrayBuffer | null = null;
   selectedImage: File | null = null;
   isUploading = false;
+
+  // Função para obter o nome de exibição do tema
+  getTemaDisplayName(tema: string): string {
+    switch (tema) {
+      case Tema.BACKEND: return 'Backend';
+      case Tema.FRONTEND: return 'Frontend';
+      case Tema.INTELIGENCIA_ARTIFICIAL: return 'Inteligência Artificial';
+      case Tema.SEGURANCA: return 'Segurança da Informação';
+      case Tema.DEVOPS: return 'DevOps';
+      case Tema.SOBRECARREIRA: return 'Sobre Carreira';
+      default: return tema;
+    }
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -269,6 +326,9 @@ private readonly postService = inject(PostService);
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result;
+        this.postForm.patchValue({
+          imagemUrl: reader.result as string
+        });
       };
       reader.readAsDataURL(this.selectedImage);
     }
@@ -277,6 +337,13 @@ private readonly postService = inject(PostService);
   removeImage(): void {
     this.imagePreview = null;
     this.selectedImage = null;
+    this.postForm.patchValue({
+      imagemUrl: ''
+    });
+  }
+
+  cancel(): void {
+    this.router.navigate(['/']);
   }
 
   onSubmit(): void {
@@ -284,17 +351,27 @@ private readonly postService = inject(PostService);
 
     this.isUploading = true;
     
-    // Aqui você implementaria o upload da imagem e criação do post
-    // Simulando um upload com setTimeout
-    setTimeout(() => {
-      const formData = {
-        ...this.postForm.value,
-        image: this.selectedImage
-      };
-      console.log('Post data:', formData);
-      
-      this.isUploading = false;
-      // Redirecionar ou mostrar mensagem de sucesso
-    }, 1500);
+    const formValue = this.postForm.value;
+    const postData = {
+      titulo: formValue.titulo ?? '',
+      conteudo: formValue.conteudo ?? '',
+      autor: formValue.autor ?? '',
+      status: formValue.status ?? '',
+      tema: formValue.tema ?? '',
+      imagemUrl: formValue.imagemUrl ?? '',
+      dataCriacao: new Date().toISOString()
+    };
+
+    // Aqui você chamaria o serviço para enviar os dados
+    this.postService.createPost(postData).subscribe({
+      next: (response) => {
+        this.isUploading = false;
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Error creating post:', error);
+        this.isUploading = false;
+      }
+    });
   }
 }

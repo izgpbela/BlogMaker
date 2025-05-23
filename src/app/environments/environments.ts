@@ -1,7 +1,7 @@
 // src/environments/environment.ts
 export const environment = {
-    production: false,
-    apiUrl: 'http://localhost:3000/api', // URL da sua API local
+    production: false, // true no environment.prod.ts
+    apiUrl: 'http://localhost:8080', // URL da sua API local
     appName: 'Blog Maker (Dev)',
     auth: {
       clientId: 'seu-client-id-dev', // Para autenticação (se usar OAuth)

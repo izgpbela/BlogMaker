@@ -1,203 +1,124 @@
-// src/app/pages/analytics/analytics.component.ts
-import { Component, AfterViewInit } from '@angular/core';
-import { Post } from '../models/post';
-import { ScaleType, Color } from '@swimlane/ngx-charts';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../services/login.service';
 import { PostService } from '../services/post.service';
-import { map } from 'rxjs/operators';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-analytics',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    NgxChartsModule
-  ],
   template: `
-    <div class="analytics-container">
-      <h1 class="page-title">analytics</h1>
-      
-      <!-- Cards de Estatísticas -->
-      <div class="stats-grid">
-        <mat-card class="stat-card">
-          <div class="stat-value">{{ totalPosts }}</div>
-          <div class="stat-label">Total de Postagens</div>
-          <mat-icon class="stat-icon">library_books</mat-icon>
-        </mat-card>
-        
-        <mat-card class="stat-card">
-          <div class="stat-value">{{ totalAuthors }}</div>
-          <div class="stat-label">Autores</div>
-          <mat-icon class="stat-icon">people</mat-icon>
-        </mat-card>
-        
-        <mat-card class="stat-card">
-          <div class="stat-value">{{ avgPostsPerAuthor | number:'1.1-1' }}</div>
-          <div class="stat-label">Média por Autor</div>
-          <mat-icon class="stat-icon">equalizer</mat-icon>
-        </mat-card>
-        
-        <mat-card class="stat-card">
-          <div class="stat-value">{{ topAuthor?.name || '-' }}</div>
-          <div class="stat-label">Autor Top</div>
-          <mat-icon class="stat-icon">star</mat-icon>
-        </mat-card>
+    <div class="dashboard">
+      <div class="stats-cards">
+        <div class="card">
+          <h3>Total Users</h3>
+          <p>{{ totalUsers }}</p>
+        </div>
+        <div class="card">
+          <h3>Total Logins</h3>
+          <p>{{ totalLogins }}</p>
+        </div>
+        <div class="card">
+          <h3>Total Posts</h3>
+          <p>{{ totalPosts }}</p>
+        </div>
+        <div class="card">
+          <h3>Conversion Rate</h3>
+          <p>{{ conversionRate }}%</p>
+        </div>
       </div>
-      
-      <!-- Gráfico de Postagens por Autor -->
-      <mat-card class="chart-card">
-        <h2 class="section-title">Últimas Postagens</h2>
-        <p class="section-subtitle">Distribuição de postagens por autor</p>
-        
-        <ngx-charts-bar-vertical
-          [view]="view"
-          [results]="postsByAuthor"
+
+      <div class="chart-container">
+        <h3>Postagens Recentes</h3>
+        <ngx-charts-line-chart
           [scheme]="colorScheme"
+          [results]="chartData"
           [xAxis]="true"
           [yAxis]="true"
           [showXAxisLabel]="true"
           [showYAxisLabel]="true"
-          [xAxisLabel]="'Autor'"
+          [xAxisLabel]="'Data'"
           [yAxisLabel]="'Postagens'"
-          [gradient]="false"
-          [showDataLabel]="true"
-          [roundDomains]="true">
-        </ngx-charts-bar-vertical>
-      </mat-card>
-      
-      <!-- Tabela de Últimas Postagens -->
-      <mat-card class="posts-table">
-        <h2 class="section-title">Detalhes das Postagens</h2>
-        <div class="table-header">
-          <span>Postagens</span>
-          <span>Autor</span>
-        </div>
-        <div class="table-content">
-          <div *ngFor="let post of recentPosts" class="table-row">
-            <span class="post-title">{{ post.title }}</span>
-            <span class="post-author">{{ post.author }}</span>
-          </div>
-        </div>
-      </mat-card>
+          [autoScale]="true">
+        </ngx-charts-line-chart>
+      </div>
     </div>
   `,
   styles: [`
-    .analytics-container {
-      @apply max-w-6xl mx-auto p-4;
+    .dashboard {
+      padding: 20px;
     }
-    .page-title {
-      @apply text-3xl font-bold text-primary-800 mb-8;
-      font-family: 'Cascadia Mono', monospace;
+
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
     }
-    .stats-grid {
-      @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+
+    .card {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
-    .stat-card {
-      @apply p-6 relative overflow-hidden;
-      background-color: #EDE7F6 !important;
+
+    .card h3 {
+      margin-bottom: 8px;
+      color: #7E57C2;
     }
-    .stat-value {
-      @apply text-4xl font-bold text-primary-600 mb-2;
-    }
-    .stat-label {
-      @apply text-gray-600 text-lg;
-    }
-    .stat-icon {
-      @apply absolute -bottom-2 -right-2 text-primary-300;
-      font-size: 5rem;
-      opacity: 0.3;
-    }
-    .chart-card, .posts-table {
-      @apply p-6 mb-8;
-      background-color: #FAF5FF !important;
-    }
-    .section-title {
-      @apply text-xl font-bold text-primary-700 mb-2;
-      font-family: 'Cascadia Mono', monospace;
-    }
-    .section-subtitle {
-      @apply text-gray-500 mb-4;
-    }
-    .table-header {
-      @apply flex justify-between font-bold text-primary-600 border-b-2 border-primary-100 pb-2 mb-4;
-    }
-    .table-content {
-      @apply space-y-3;
-    }
-    .table-row {
-      @apply flex justify-between py-2 border-b border-gray-100;
-    }
-    .post-title {
-      @apply text-gray-700;
-    }
-    .post-author {
-      @apply text-primary-600 font-medium;
-    }
-    ngx-charts-bar-vertical {
-      @apply w-full;
-      height: 400px;
+
+    .chart-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
   `]
 })
-export class AnalyticsComponent implements AfterViewInit {
-  view: [number, number] = [0, 400];
+export class AnalyticsComponent implements OnInit {
+  totalUsers = 0;
+  totalLogins = 0;
+  totalPosts = 0;
+  conversionRate = 0;
+
+  chartData: any[] = [];
+
   colorScheme: Color = {
     name: 'custom',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#7E57C2', '#B39DDB', '#D1C4E9', '#EDE7F6']
+    domain: ['#7E57C2']
   };
 
-  // Dados de exemplo (substituir por dados reais do serviço)
-  totalPosts = 5;
-  totalAuthors = 7;
-  avgPostsPerAuthor = 0;
-  topAuthor: any = null;
-  postsByAuthor: any[] = [];
-  recentPosts: any[] = [];
+  constructor(
+    private loginService: LoginService,
+    private postService: PostService
+  ) {}
 
-  constructor(private postService: PostService) {}
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.view = [window.innerWidth * 0.9, 400];
-    });
-
-    // Simulando carregamento de dados
-    this.loadAnalyticsData();
+  ngOnInit() {
+    this.loadAnalytics();
   }
 
-  loadAnalyticsData() {
-    // Substituir por chamada real ao serviço
-    this.postService.getPosts().pipe(
-      map((posts: Post[]) => {
-        // Processar dados para analytics
-        this.totalPosts = posts.length;
-        
-        const authors = [...new Set(posts.map(p => p.author))];
-        this.totalAuthors = authors.length;
-        
-        this.avgPostsPerAuthor = this.totalPosts / this.totalAuthors;
-        
-        // Contar posts por autor
-        const authorCounts = authors.map(author => ({
-          name: author,
-          value: posts.filter(p => p.author === author).length
-        }));
-        
-        this.postsByAuthor = authorCounts;
-        this.topAuthor = [...authorCounts].sort((a, b) => b.value - a.value)[0];
-        
-        // Últimas 5 postagens
-        this.recentPosts = [...posts]
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-          .slice(0, 5);
-      })
-    ).subscribe();
+  loadAnalytics() {
+    this.loginService.getTotalUsers().subscribe(users => {
+      this.totalUsers = users;
+
+      // Garantir que login vem depois dos usuários (se necessário para o cálculo)
+      this.loginService.getRecentLogins().subscribe(logins => {
+        this.totalLogins = logins;
+
+        // Calcular taxa de conversão após ambas respostas
+        this.conversionRate = (this.totalLogins && this.totalUsers) ?
+          Math.round((this.totalLogins / this.totalUsers) * 100) : 0;
+      });
+    });
+
+    this.postService.getPosts().subscribe(posts => {
+      this.totalPosts = posts.length;
+    });
+
+    this.postService.getPostStatsByDate().subscribe(stats => {
+      this.chartData = stats;
+    });
   }
 }

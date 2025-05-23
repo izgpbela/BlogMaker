@@ -1,7 +1,7 @@
 // src/environments/environment.prod.ts
 export const environment = {
     production: true,
-    apiUrl: 'https://api.seublog.com/v1', // URL da API em produção
+    apiUrl: 'http://localhost:4200/', // URL da API em produção 
     appName: 'Blog Maker',
     auth: {
       clientId: 'seu-client-id-prod',

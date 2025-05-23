@@ -1,10 +1,11 @@
-// src/app/components/theme-card/theme-card.component.ts
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { Tema } from '../enum/tema.enum';
+
 
 @Component({
   selector: 'app-theme-card',
@@ -13,31 +14,41 @@ import { RouterModule } from '@angular/router';
   template: `
     <mat-card class="theme-card">
       <mat-card-header>
-        <mat-card-title class="text-xl font-bold">{{ title }}</mat-card-title>
+        <mat-card-title class="text-xl font-bold text-purple-800">{{ title }}</mat-card-title>
       </mat-card-header>
-      
+
       <mat-card-content>
         <p class="text-gray-600 mb-4">{{ description }}</p>
-        
+
         <div class="posts-count mb-4">
           <span class="font-medium">{{ posts.length }} Posts</span>
         </div>
-        
-        <div class="posts-list space-y-4">
+
+        <div *ngIf="posts.length === 0" class="text-gray-400 italic text-sm">
+          Nenhuma postagem disponível neste tema.
+        </div>
+
+        <div class="posts-list space-y-4" *ngIf="posts.length > 0">
           <div *ngFor="let post of posts" class="post-item border-b pb-4">
-            <h3 class="font-bold text-lg">{{ post.title }}</h3>
-            <p class="text-gray-600 text-sm">{{ post.summary }}</p>
+            <h3 class="font-bold text-lg">
+              <a [routerLink]="['/post', post.id]" class="text-blue-600 hover:underline">
+                {{ post.titulo }}
+              </a>
+            </h3>
+            <p class="text-gray-600 text-sm">
+              {{ post.conteudo | slice: 0:100 }}...
+            </p>
             <div class="post-meta text-xs text-gray-500 mt-2">
-              <span>{{ post.author }}</span>
+              <span>{{ post.autor }}</span>
               <span class="mx-2">•</span>
-              <span>{{ post.date }}</span>
+              <span>{{ post.dataCriacao | date:'dd/MM/yyyy' }}</span>
             </div>
           </div>
         </div>
       </mat-card-content>
-      
+
       <mat-card-actions>
-        <button mat-button color="primary" [routerLink]="['/theme', title.toLowerCase()]">
+        <button mat-button color="primary" [routerLink]="['/theme', themeKey]">
           VIEW ALL POSTS
         </button>
       </mat-card-actions>
@@ -45,38 +56,25 @@ import { RouterModule } from '@angular/router';
   `,
   styles: [`
     .theme-card {
-      @apply h-full flex flex-col;
-      min-height: 400px;
+      @apply h-full flex flex-col shadow-lg rounded-2xl overflow-hidden border border-gray-200;
     }
     mat-card-content {
       @apply flex-grow;
+    }
+    mat-card-header {
+      @apply bg-purple-100 p-4;
+    }
+    mat-card-title {
+      @apply text-purple-800;
+    }
+    mat-card-actions {
+      @apply mt-auto;
     }
   `]
 })
 export class ThemeCardComponent {
   @Input() title: string = '';
   @Input() description: string = '';
+  @Input() themeKey: string = ''; // <- usado para criar rota amigável
   @Input() posts: any[] = [];
-
-  // Exemplo de dados que seriam recebidos do serviço
-  /*webDevPosts = [
-    {
-      title: 'React vs Angular: A Developer\'s Perspective',
-      summary: 'Comparing React and Angular from different angles to help you choose the right tool.',
-      author: 'John Doe',
-      date: 'May 17, 2023'
-    },
-    {
-      title: 'Understanding CSS Grid',
-      summary: 'Learn how to use CSS Grid to create complex layouts with ease.',
-      author: 'Maria Silva',
-      date: 'April 19, 2023'
-    },
-    {
-      title: 'Getting Started with Angular',
-      summary: 'An introduction to Angular framework and how to set up your first project.',
-      author: 'John Doe',
-      date: 'April 14, 2023'
-    }
-  ];*/
 }

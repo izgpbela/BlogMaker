@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { PostService } from '../services/post.service';
+import { Tema } from '../enum/tema.enum';
 
 @Component({
   selector: 'app-themes',
@@ -26,7 +27,7 @@ import { PostService } from '../services/post.service';
       <div class="header-section">
         <h2 class="section-title">Explore Themes</h2>
         <p class="section-description">
-        Descubra conteúdo organizado por temas. Cada tema contém postagens sobre tópicos específicos.
+          Descubra conteúdo organizado por temas. Cada tema contém postagens sobre tópicos específicos.
         </p>
       </div>
       
@@ -58,10 +59,11 @@ import { PostService } from '../services/post.service';
           [posts]="designPosts"
           icon="palette">
         </app-theme-card>
+
         <app-theme-card 
           title="Carreira Technology" 
           description="Carreira na tecnologia"
-          [posts]="designPosts"
+          [posts]="careerPosts"
           icon="palette">
         </app-theme-card>
       </div>
@@ -77,20 +79,20 @@ import { PostService } from '../services/post.service';
     .header-section {
       margin-bottom: 32px;
       text-align: center;
+    }
 
-      .section-title {
-        font-size: 2rem;
-        font-weight: 500;
-        color: #4A148C; /* Roxo escuro */
-        margin-bottom: 16px;
-      }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 500;
+      color: #4A148C; /* Roxo escuro */
+      margin-bottom: 16px;
+    }
 
-      .section-description {
-        font-size: 1rem;
-        color: #718096; /* Cinza médio */
-        max-width: 600px;
-        margin: 0 auto;
-      }
+    .section-description {
+      font-size: 1rem;
+      color: #718096; /* Cinza médio */
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .themes-grid {
@@ -107,10 +109,10 @@ import { PostService } from '../services/post.service';
 
       .header-section {
         margin-bottom: 24px;
+      }
 
-        .section-title {
-          font-size: 1.5rem;
-        }
+      .section-title {
+        font-size: 1.5rem;
       }
 
       .themes-grid {
@@ -121,74 +123,71 @@ import { PostService } from '../services/post.service';
   `]
 })
 export class ThemesComponent {
-
+  Tema = Tema;
+  // Injetando o serviço PostService
   private readonly postService = inject(PostService);
 
   webDevPosts: any[] = [];
+  techPosts: any[] = [];
+  mobilePosts: any[] = [];
+  designPosts: any[] = [];
+  careerPosts: any[] = [];
 
   constructor() {
     this.postService.getPosts().subscribe({
       next: (posts) => {
-        this.webDevPosts = posts;
-        console.log(posts);
+        console.log('Todos os posts:', posts);
+
+        this.webDevPosts = posts
+          .filter(p => p.tema === Tema.FRONTEND)
+          .map(p => ({
+            id: p.id,
+            titulo: p.titulo,
+            conteudo: p.conteudo,
+            autor: p.autor,
+            dataCriacao: p.dataCriacao
+          }));
+
+        this.techPosts = posts
+          .filter(p => p.tema === Tema.INTELIGENCIA_ARTIFICIAL)
+          .map(p => ({
+            id: p.id,
+            titulo: p.titulo,
+            conteudo: p.conteudo,
+            autor: p.autor,
+            dataCriacao: p.dataCriacao
+          }));
+
+        this.mobilePosts = posts
+          .filter(p => p.tema === Tema.MOBILE) // Usando enum Tema.MOBILE
+          .map(p => ({
+            id: p.id,
+            titulo: p.titulo,
+            conteudo: p.conteudo,
+            autor: p.autor,
+            dataCriacao: p.dataCriacao
+          }));
+
+        this.designPosts = posts
+          .filter(p => p.tema === Tema.UX) // Usando enum Tema.UX
+          .map(p => ({
+            id: p.id,
+            titulo: p.titulo,
+            conteudo: p.conteudo,
+            autor: p.autor,
+            dataCriacao: p.dataCriacao
+          }));
+
+        this.careerPosts = posts
+          .filter(p => p.tema === Tema.SOBRECARREIRA)
+          .map(p => ({
+            id: p.id,
+            titulo: p.titulo,
+            conteudo: p.conteudo,
+            autor: p.autor,
+            dataCriacao: p.dataCriacao
+          }));
       }
     });
   }
-
-  
-
-  /*webDevPosts = [
-    {
-      title: 'React vs Angular: A Developer\'s Perspective',
-      summary: 'Comparing React and Angular from different angles to help you choose the right tool.',
-      author: 'John Doe',
-      date: 'May 17, 2023'
-    },
-    {
-      title: 'Understanding CSS Grid',
-      summary: 'Learn how to use CSS Grid to create complex layouts with ease.',
-      author: 'Maria Silva',
-      date: 'April 19, 2023'
-    },
-    {
-      title: 'Getting Started with Angular',
-      summary: 'An introduction to Angular framework and how to set up your first project.',
-      author: 'John Doe',
-      date: 'April 14, 2023'
-    }
-  ];*/
-
-
-  techPosts = [
-    {
-      title: 'The Future of AI',
-      summary: 'Exploring the latest advancements in artificial intelligence.',
-      author: 'Alex Johnson',
-      date: 'June 5, 2023'
-    },
-    {
-      title: 'Blockchain Basics',
-      summary: 'Understanding the fundamentals of blockchain technology.',
-      author: 'Sam Wilson',
-      date: 'May 22, 2023'
-    }
-  ];
-
-  mobilePosts = [
-    {
-      title: 'Flutter for Cross-Platform Development',
-      summary: 'Why Flutter is becoming popular for mobile app development.',
-      author: 'Taylor Swift',
-      date: 'June 10, 2023'
-    }
-  ];
-
-  designPosts = [
-    {
-      title: 'Design Thinking Principles',
-      summary: 'Key principles for effective UX design.',
-      author: 'Emma Stone',
-      date: 'May 30, 2023'
-    }
-  ];
 }

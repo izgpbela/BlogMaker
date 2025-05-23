@@ -10,7 +10,15 @@ import { environment } from '../environments/environment.prod';  // Import the e
 export class PostService {
   private apiUrl = 'http://localhost:8080/api/postagens';
 
+  private getHeaders(): HttpHeaders {
+  const token = localStorage.getItem('token') || '';
+  return new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+}
+
   constructor(private http: HttpClient) {}
+
 
   getPosts(): Observable<Post[]> {
     const token = localStorage.getItem('token') || '';
@@ -51,4 +59,19 @@ export class PostService {
     });
     return this.http.get<Post>(`${this.apiUrl}/${id}`, {headers});
   }
+
+  getPostsByTheme(theme: string): Observable<Post[]> {
+  return this.http.get<Post[]>(`${this.apiUrl}/tema/${theme}`, { headers: this.getHeaders() });
+}
+
+
+
+  getPostStatsByDate(): Observable<any[]> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  return this.http.get<any[]>('http://localhost:8080/api/posts/stats-by-date', { headers });
+}
+
 }

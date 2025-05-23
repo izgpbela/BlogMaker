@@ -38,18 +38,6 @@ import { HttpErrorResponse } from '@angular/common/http';
             <h1 class="poppins-semibold">Criar Nova Conta</h1>
             <p class="poppins-light">Preencha os campos para se registrar no sistema</p>
           </div>
-          
-          <div class="register__row">
-            <div class="register__fields">
-              <mat-form-field appearance="outline" class="w-full">
-                <mat-label>Nome</mat-label>
-                <input matInput formControlName="name" required>
-                <mat-icon matPrefix>person</mat-icon>
-                @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
-                  <mat-error>Campo obrigatório</mat-error>
-                }
-              </mat-form-field>
-            </div>
             
             <div class="register__fields">
               <mat-form-field appearance="outline" class="w-full">
@@ -268,7 +256,6 @@ export class RegisterComponent {
   ];
 
   registerForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -294,10 +281,9 @@ export class RegisterComponent {
     }
 
     this.isLoading = true;
-    const { name, email, username, password, role } = this.registerForm.value;
+    const { email, username, password, role } = this.registerForm.value;
 
     this.registerService.register({
-      name: name ?? '',
       email: email ?? '',
       username: username ?? '',
       password: password ?? '',
