@@ -102,4 +102,5 @@ export class HomeComponent {
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
+  
 }

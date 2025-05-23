@@ -8,12 +8,16 @@ import { environment } from '../environments/environment.prod';  // Import the e
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = 'http://localhost:8080/postagens';
+  private apiUrl = 'http://localhost:8080/api/postagens';
 
   constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.apiUrl);
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Post[]>(this.apiUrl + '/listar', { headers });
   }
 
   createPost(post: Post): Observable<Post> {
@@ -21,7 +25,7 @@ export class PostService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post<Post>(this.apiUrl, post, { headers });
+    return this.http.post<Post>(this.apiUrl + '/nova', post, { headers });
   }
 
   updatePost(id: number, post: Post): Observable<Post> {
@@ -29,7 +33,7 @@ export class PostService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put<Post>(`${this.apiUrl}/${id}`, post, { headers });
+    return this.http.put<Post>(`${this.apiUrl}/editar/${id}`, post, { headers });
   }
 
   deletePost(id: number): Observable<void> {
@@ -37,7 +41,7 @@ export class PostService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.delete<void>(`${this.apiUrl}/excluir/${id}`, { headers });
   }
 
   getPostById(id: number): Observable<Post> {

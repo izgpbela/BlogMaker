@@ -59,7 +59,7 @@ export class ThemeCardComponent {
   @Input() posts: any[] = [];
 
   // Exemplo de dados que seriam recebidos do serviço
-  webDevPosts = [
+  /*webDevPosts = [
     {
       title: 'React vs Angular: A Developer\'s Perspective',
       summary: 'Comparing React and Angular from different angles to help you choose the right tool.',
@@ -78,5 +78,5 @@ export class ThemeCardComponent {
       author: 'John Doe',
       date: 'April 14, 2023'
     }
-  ];
+  ];*/
 }

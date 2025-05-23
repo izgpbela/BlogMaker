@@ -1,5 +1,5 @@
 // src/app/pages/themes/themes.component.ts
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,6 +7,7 @@ import { ThemeCardComponent } from '../components/theme.card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-themes',
@@ -120,7 +121,23 @@ import { RouterModule } from '@angular/router';
   `]
 })
 export class ThemesComponent {
-  webDevPosts = [
+
+  private readonly postService = inject(PostService);
+
+  webDevPosts: any[] = [];
+
+  constructor() {
+    this.postService.getPosts().subscribe({
+      next: (posts) => {
+        this.webDevPosts = posts;
+        console.log(posts);
+      }
+    });
+  }
+
+  
+
+  /*webDevPosts = [
     {
       title: 'React vs Angular: A Developer\'s Perspective',
       summary: 'Comparing React and Angular from different angles to help you choose the right tool.',
@@ -139,7 +156,8 @@ export class ThemesComponent {
       author: 'John Doe',
       date: 'April 14, 2023'
     }
-  ];
+  ];*/
+
 
   techPosts = [
     {

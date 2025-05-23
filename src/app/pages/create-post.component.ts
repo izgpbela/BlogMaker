@@ -1,5 +1,5 @@
 // src/app/pages/create-post/create-post.component.ts
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-create-post',
@@ -240,6 +241,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   `]
 })
 export class CreatePostComponent {
+
+private readonly postService = inject(PostService);
+
   postForm = new FormGroup({
     theme: new FormControl('', [Validators.required]),
     title: new FormControl('', [
